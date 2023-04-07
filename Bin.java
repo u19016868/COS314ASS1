@@ -16,7 +16,7 @@ public class Bin {
     }
 
     public Bin copy() {
-        Bin result = new Bin(c);
+        Bin result = new Bin();
         for (Integer i : contents) {
             result.add(i);
         }

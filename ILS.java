@@ -45,7 +45,7 @@ public class ILS extends Thread {
         }
         lock.lock();
         try {
-            this.fw = new FileWriter("Results.txt");
+            this.fw = new FileWriter("Results.txt", true);
             System.out.println("ILS" + data.Name + " " + sStar.size());
             fw.write("ILS" + data.Name + "\t\t\t\t\t" + sStar.size() + "\n");
             fw.close();
@@ -58,7 +58,7 @@ public class ILS extends Thread {
     }
 
     private ArrayList<Bin> localSearch(ArrayList<Bin> s) {
-        Node root = generateNeighbors(s, 5);
+        Node root = generateNeighbors(s, 2);
         return bestSolution(root).data;
     }
 

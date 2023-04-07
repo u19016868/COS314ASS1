@@ -55,7 +55,7 @@ public class Tabu extends Thread {
         Node x1;
         Node bestNeighbour;
         do {
-            x1 = generateNeighbors(x, 2);
+            x1 = generateNeighbors(x, 1);
             Node Canditate = null;
             bestNeighbour = x1;
             for (Node n : x1.neighbours) // save all neighbours
@@ -77,9 +77,10 @@ public class Tabu extends Thread {
         } while (N-- > 0 && !bestNeighbour.equals(x1));
         lock.lock();
         try {
-            this.fw = new FileWriter("Results.txt");
+            this.fw = new FileWriter("Results.txt", true);
             System.out.println("TAB" + data.Name + " " + x.size());
             fw.write("TAB" + data.Name + "\t\t\t\t\t" + x.size() + "\n");
+            fw.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -104,9 +105,9 @@ public class Tabu extends Thread {
         return flag;
     }
 
-    private Node generateNeighbors(ArrayList<Bin> currSol, int x) {
+    private Node generateNeighbors(ArrayList<Bin> currSol, int a) {
         Node root = new Node(currSol);
-        if (x > 0) {
+        if (a > 0) {
             for (int i = 0; i < currSol.size(); i++) {
                 for (int j = 0; j < currSol.get(i).contents.size(); j++) {
                     ArrayList<Bin> b = deepCopy(currSol);
@@ -127,7 +128,7 @@ public class Tabu extends Thread {
                         b.add(new Bin(temp));
                     else
                         b.get(index).add(temp);
-                    root.add(generateNeighbors(b, x - 1));
+                    root.add(generateNeighbors(b, a - 1));
                 }
             }
 
